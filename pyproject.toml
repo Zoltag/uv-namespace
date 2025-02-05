@@ -1,0 +1,181 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project]
+name = "zoltag.base.hello_world"
+description = "Sample to test uv build"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
+]
+requires-python = ">=3.9,<3.14"
+dependencies = []
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "ruff"
+]
+test = [
+    "autopep8",
+    "coverage",
+    "pytest",
+    "pylint",
+    "pytest-cov"
+]
+
+[tool.pdm.version]
+source = "scm"
+fallback_version = "1.0.0"
+
+[tool.pdm.build]
+includes = ["zoltag/"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+junit_family = "xunit2"
+pythonpath = ["src"]
+
+[tool.coverage.run]
+branch = true
+source = ["src/"]
+parallel = true
+concurrency = ["multiprocessing"]
+relative_files = true
+
+[tool.coverage.report]
+exclude_also = [
+    "if __name__ == .__main__.:"
+]
+
+[tool.autopep8]
+max-line-length = 170
+ignore = "E501,E402"
+
+[tool.pylint.MASTER]
+limit-inference-results = 100
+suggestion-mode = "yes"
+
+[tool.pylint.FORMAT]
+max-line-length = 170
+max-module-lines = 1000
+indent-after-paren = 4
+indent-string = "    "
+
+[tool.pylintrc."MESSAGES CONTROL"]
+disable = [
+    "wrong-import-position",
+    "missing-module-docstring",
+    "logging-fstring-interpolation",
+    "no-self-use",
+    "redefined-outer-name"
+]
+
+[tool.pylintrc.REPORTS]
+output-format = "colorized"
+reports = "no"
+
+[tool.pylintrc.BASIC]
+argument-naming-style = "snake_case"
+attr-naming-style = "snake_case"
+class-naming-style = "PascalCase"
+class-attribute-naming-style = "snake_case"
+variable-naming-style = "snake_case"
+function-naming-style = "snake_case"
+method-naming-style = "snake_case"
+module-naming-style = "snake_case"
+const-naming-style = "UPPER_CASE"
+good-names = ["i", "j", "k", "v", "ex", "e", "df", "f", "id"]
+bad-names = ["foo", "bar", "baz", "toto", "tutu", "tata", "titi", "tete", "alaki"]
+include-naming-hint = "yes"
+docstring-min-length = 1
+
+[tool.pylintrc.LOGGING]
+logging-format-style = "new"
+
+[tool.pylintrc.VARIABLES]
+callbacks = "cb_,_cb"
+init-import = "no"
+
+[tool.pylintrc.DESIGN]
+max-args = 10
+max-attributes = 20
+max-bool-expr = 5
+max-branches = 15
+max-locals = 15
+max-parents = 7
+max-public-methods = 20
+max-returns = 6
+max-statements = 50
+min-public-methods = 2
+
+[tool.pylintrc.EXCEPTIONS]
+overgeneral-exceptions = "BaseException"
+
+[tool.pylintrc.SIMILARITIES]
+ignore-imports = "yes"
+
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".vscode",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "unittest",
+    "venv",
+    ".venv",
+    "env",
+    ".env",
+    "*.pyi"
+]
+line-length = 170
+indent-width = 4
+output-format = "full"
+show-fixes = true
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+]
+ignore = ["E501", "E402"]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.isort]
+lines-between-types = 1
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "I001"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
